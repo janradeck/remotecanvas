@@ -33,7 +33,7 @@ public class SvgDrawerServer {
     server.stop(1);
   }
 
-  private class CloseHandler extends RequestHandlerClass {
+  public class CloseHandler extends RequestHandlerClass {
 
     public CloseHandler(SvgApplication application, CommunicationServer server) {
       super(application, server);
