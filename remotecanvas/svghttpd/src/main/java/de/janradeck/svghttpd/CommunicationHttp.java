@@ -7,17 +7,12 @@ import com.sun.net.httpserver.HttpExchange;
 
 public class CommunicationHttp implements Communication {
 	private HttpExchange exchange;
-	private int status = 200;
 
 	public CommunicationHttp(HttpExchange exchange) {
 		this.exchange = exchange;
 	}
 
-	public void setStatus(int status) {
-		this.status = status;
-	}
-
-	public void reply(String message) {
+	public void reply(int status, String message) {
 		try {
 			exchange.sendResponseHeaders(status, message.length());
 			OutputStream os = exchange.getResponseBody();

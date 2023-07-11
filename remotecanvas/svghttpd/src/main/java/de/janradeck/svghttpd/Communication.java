@@ -2,8 +2,6 @@ package de.janradeck.svghttpd;
 
 public interface Communication {
 	
-	void setStatus(int status);
-	
-	void reply(String message);
+	void reply(int status, String message);
 
 }

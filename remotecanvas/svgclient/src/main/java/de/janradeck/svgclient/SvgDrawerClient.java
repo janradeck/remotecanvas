@@ -9,47 +9,46 @@ public class SvgDrawerClient {
     this.factory = factory;
   }
 
-  public void drawGreen(String message, String path) {
-    QueryGenerator query = factory.getQueryGenerator("/drawGreen");
-    query.addParameter("message", message);
-    query.addParameter("path", path);
-    query.executeGetQuery();
-  }
-  public void drawBlue(String message, String path) {
-    QueryGenerator query = factory.getQueryGenerator("/drawBlue");
-    query.addParameter("message", message);
-    query.addParameter("path", path);
-    query.executeGetQuery();
-  }
-  public void drawRed(String message, String path) {
-    QueryGenerator query = factory.getQueryGenerator("/drawRed");
-    query.addParameter("message", message);
-    query.addParameter("path", path);
-    query.executeGetQuery();
-  }
-  public void drawBlack(String message, String path) {
-    QueryGenerator query = factory.getQueryGenerator("/drawBlack");
-    query.addParameter("message", message);
-    query.addParameter("path", path);
-    query.executeGetQuery();
-  }
-  public void drawGrey(String message, String path) {
-    QueryGenerator query = factory.getQueryGenerator("/drawGrey");
-    query.addParameter("message", message);
-    query.addParameter("path", path);
-    query.executeGetQuery();
-  }
-  public void draw(String message, String path, String style) {
+  public int draw(String message, String path, String style) {
     QueryGenerator query = factory.getQueryGenerator("/draw");
     query.addParameter("message", message);
     query.addParameter("path", path);
     query.addParameter("style", style);
-    query.executeGetQuery();
+    return query.executeGetQuery();
   }
-  public void clear() {
+  public int drawBlue(String message, String path) {
+    QueryGenerator query = factory.getQueryGenerator("/drawBlue");
+    query.addParameter("message", message);
+    query.addParameter("path", path);
+    return query.executeGetQuery();
+  }
+  public int drawGreen(String message, String path) {
+    QueryGenerator query = factory.getQueryGenerator("/drawGreen");
+    query.addParameter("message", message);
+    query.addParameter("path", path);
+    return query.executeGetQuery();
+  }
+  public int drawRed(String message, String path) {
+    QueryGenerator query = factory.getQueryGenerator("/drawRed");
+    query.addParameter("message", message);
+    query.addParameter("path", path);
+    return query.executeGetQuery();
+  }
+  public int drawBlack(String message, String path) {
+    QueryGenerator query = factory.getQueryGenerator("/drawBlack");
+    query.addParameter("message", message);
+    query.addParameter("path", path);
+    return query.executeGetQuery();
+  }
+  public int drawGrey(String message, String path) {
+    QueryGenerator query = factory.getQueryGenerator("/drawGrey");
+    query.addParameter("message", message);
+    query.addParameter("path", path);
+    return query.executeGetQuery();
+  }
+  public int clear() {
     QueryGenerator query = factory.getQueryGenerator("/clear");
-    query.executeGetQuery();
+    return query.executeGetQuery();
   }
-
 
 }

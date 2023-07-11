@@ -1,9 +1,7 @@
 package de.janradeck.svgclient;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
@@ -33,16 +31,18 @@ public class DynamicQuery implements QueryGenerator {
 		}
 	}
 
-	public void executeGetQuery() {
+	@Override
+	public int executeGetQuery() {
 		String fullQuery = String.format("http://localhost:%d%s", PORT, query);
 		try {
 			URL url = new URL(fullQuery);
 			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 			urlConnection.setRequestMethod("GET");
 			urlConnection.setRequestProperty("User-Agent", userAgent);
-			urlConnection.getResponseCode();
-		} catch (MalformedURLException e) {
-		} catch (IOException e) {
+			return urlConnection.getResponseCode();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+			return 0;
 		}
 	}
 

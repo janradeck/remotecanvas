@@ -4,22 +4,21 @@ package de.janradeck.svghttpd;
 
 
 public class SvgDrawerServer {
-  private static final String styleGreen = "fill:none;stroke:#00FF00";
   private static final String styleBlue = "fill:none;stroke:#0000FF";
   private static final String styleRed = "fill:none;stroke:#FF0000";
   private static final String styleBlack = "fill:none;stroke:#000000";
   private static final String styleGrey = "fill:none;stroke:#7F7F7F";
-
+  private static final int HTTP_RESULT_OKAY = 200;
   protected CommunicationServer server;
 
   public SvgDrawerServer(SvgApplication application, InjectionFactoryServer factory) {
     server = factory.getServer();
-    server.addHandler("/drawGreen", new DrawGreenHandler(application, server));
+    server.addHandler("/draw", new DrawHandler(application, server));
     server.addHandler("/drawBlue", new DrawBlueHandler(application, server));
+    server.addHandler("/drawGreen", new DrawGreenHandler(application, server));
     server.addHandler("/drawRed", new DrawRedHandler(application, server));
     server.addHandler("/drawBlack", new DrawBlackHandler(application, server));
     server.addHandler("/drawGrey", new DrawGreyHandler(application, server));
-    server.addHandler("/draw", new DrawHandler(application, server));
     server.addHandler("/clear", new ClearHandler(application, server));
     // Register a handler to close the application via the http interface
     server.addHandler("/close", new CloseHandler(application, server));
@@ -27,124 +26,109 @@ public class SvgDrawerServer {
   }
 
   /**
-   * Stop the server. This is called when the application is shut down by the user, e.g. when the main window is closed
+   * Method to stop the server. This is called when the application is shut down by the user, e.g. when the main window is closed
    */
   public void stop() {
     server.stop(1);
   }
 
-  public class CloseHandler extends RequestHandlerClass {
+  /**
+   * The RequestHandler for closing the application
+   */
+  private class CloseHandler extends RequestHandlerClass {
 
     public CloseHandler(SvgApplication application, CommunicationServer server) {
       super(application, server);
     }
 
     public void executeHandler(Communication communication, Parameters params, SvgApplication application) {
-      communication.setStatus(200);
-      communication.reply("Command close okay");
+      //  The reply is sent before shutting down the server, to make sure that the reply is transmitted
+      communication.reply(HTTP_RESULT_OKAY, createReplyStringOkay("close"));
+      System.out.println("Closing application");
       server.stop(1);
       application.close();
     }
   }
 
-
-  private class DrawGreenHandler extends RequestHandlerClass {
-    public DrawGreenHandler(SvgApplication application, CommunicationServer server) {
+  private class DrawHandler extends RequestHandlerClass {
+    public DrawHandler(SvgApplication application, CommunicationServer server) {
       super(application, server);
     }
     public void executeHandler(Communication communication, Parameters params, SvgApplication application) {
-      String response = "Command drawGreen okay";
-      communication.setStatus(200);
-      communication.reply(response);
+      communication.reply(HTTP_RESULT_OKAY, createReplyStringOkay("draw"));
       String message = params.get("message");
       String path = params.get("path");
-      application.draw(message, path, styleGreen);
+      String style = params.get("style");
+      application.draw(message, path, style);
     }
-
   }
   private class DrawBlueHandler extends RequestHandlerClass {
     public DrawBlueHandler(SvgApplication application, CommunicationServer server) {
       super(application, server);
     }
     public void executeHandler(Communication communication, Parameters params, SvgApplication application) {
-      String response = "Command drawBlue okay";
-      communication.setStatus(200);
-      communication.reply(response);
+      communication.reply(HTTP_RESULT_OKAY, createReplyStringOkay("drawBlue"));
       String message = params.get("message");
       String path = params.get("path");
       application.draw(message, path, styleBlue);
     }
-
+  }
+  private class DrawGreenHandler extends RequestHandlerClass {
+    public DrawGreenHandler(SvgApplication application, CommunicationServer server) {
+      super(application, server);
+    }
+    public void executeHandler(Communication communication, Parameters params, SvgApplication application) {
+      communication.reply(HTTP_RESULT_OKAY, createReplyStringOkay("drawGreen"));
+      final String styleGreen = new String("fill:none;stroke:#00FF00");
+      String message = params.get("message");
+      String path = params.get("path");
+      application.draw(message, path, styleGreen);
+    }
   }
   private class DrawRedHandler extends RequestHandlerClass {
     public DrawRedHandler(SvgApplication application, CommunicationServer server) {
       super(application, server);
     }
     public void executeHandler(Communication communication, Parameters params, SvgApplication application) {
-      String response = "Command drawRed okay";
-      communication.setStatus(200);
-      communication.reply(response);
+      communication.reply(HTTP_RESULT_OKAY, createReplyStringOkay("drawRed"));
       String message = params.get("message");
       String path = params.get("path");
       application.draw(message, path, styleRed);
     }
-
   }
   private class DrawBlackHandler extends RequestHandlerClass {
     public DrawBlackHandler(SvgApplication application, CommunicationServer server) {
       super(application, server);
     }
     public void executeHandler(Communication communication, Parameters params, SvgApplication application) {
-      String response = "Command drawBlack okay";
-      communication.setStatus(200);
-      communication.reply(response);
+      communication.reply(HTTP_RESULT_OKAY, createReplyStringOkay("drawBlack"));
       String message = params.get("message");
       String path = params.get("path");
       application.draw(message, path, styleBlack);
     }
-
   }
   private class DrawGreyHandler extends RequestHandlerClass {
     public DrawGreyHandler(SvgApplication application, CommunicationServer server) {
       super(application, server);
     }
     public void executeHandler(Communication communication, Parameters params, SvgApplication application) {
-      String response = "Command drawGrey okay";
-      communication.setStatus(200);
-      communication.reply(response);
+      communication.reply(HTTP_RESULT_OKAY, createReplyStringOkay("drawGrey"));
       String message = params.get("message");
       String path = params.get("path");
       application.draw(message, path, styleGrey);
     }
-
-  }
-  private class DrawHandler extends RequestHandlerClass {
-    public DrawHandler(SvgApplication application, CommunicationServer server) {
-      super(application, server);
-    }
-    public void executeHandler(Communication communication, Parameters params, SvgApplication application) {
-      String response = "Command draw okay";
-      communication.setStatus(200);
-      communication.reply(response);
-      String message = params.get("message");
-      String path = params.get("path");
-      String style = params.get("style");
-      application.draw(message, path, style);
-    }
-
   }
   private class ClearHandler extends RequestHandlerClass {
     public ClearHandler(SvgApplication application, CommunicationServer server) {
       super(application, server);
     }
     public void executeHandler(Communication communication, Parameters params, SvgApplication application) {
-      String response = "Command clear okay";
-      communication.setStatus(200);
-      communication.reply(response);
+      communication.reply(HTTP_RESULT_OKAY, createReplyStringOkay("clear"));
       application.clearCanvas();
     }
-
   }
 
-
+  private static String createReplyStringOkay(String commandName) {
+    return "Command " + commandName + " okay";
+  }
 }
