@@ -5,18 +5,10 @@
     <artifactId>remotecanvas</artifactId>
     <version>1.0</version>
   </parent>
-  <artifactId>svgclient</artifactId>
-<version>1.0</version>
+  <artifactId>svgclient-interface</artifactId>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-	</properties>
-	<dependencies>
-		<dependency>
-			<groupId>de.janradeck</groupId>
-            <artifactId>svgclient-interface</artifactId>
-            <version>1.0</version>
-		</dependency>
-	</dependencies> 	
+	</properties>  
 </project>

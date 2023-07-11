@@ -16,8 +16,9 @@ public class ServerAbstraction implements CommunicationServer {
 		}
 	}
 
-	public void addHandler(String context, RequestHandlerClass requestHandler) {
-		server.createContext(context, requestHandler);
+	@Override
+	public void addHandler(String context, RequestHandler requestHandler) {
+		server.createContext(context, (RequestHandlerClass) requestHandler);
 	}
 
 	public void start() {

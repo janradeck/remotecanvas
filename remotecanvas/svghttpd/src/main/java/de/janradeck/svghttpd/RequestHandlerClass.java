@@ -6,13 +6,10 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 
-public abstract class RequestHandlerClass  implements RequestHandler, HttpHandler  {
-	private SvgApplication application;
-	protected CommunicationServer server;
+public abstract class RequestHandlerClass  extends RequestHandler implements HttpHandler  {
 
 	public RequestHandlerClass(SvgApplication application, CommunicationServer server) {
-		this.application = application;
-		this.server = server;
+		super(application, server);
 	}
 
 	@Override

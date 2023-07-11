@@ -10,7 +10,9 @@
 	<description>Remote Canvas</description>
 	<modules>
 		<module>svgclient</module>
+		<module>svgclient-interface</module>
 		<module>svghttpd</module>
+		<module>svghttpd-interface</module>
 		<module>svgdemo</module>
 	</modules>
 	<build>

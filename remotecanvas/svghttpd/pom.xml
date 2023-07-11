@@ -15,34 +15,6 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-jar-plugin</artifactId>
-					<version>3.3.0</version>
-					<executions>
-						<execution>
-							<id>interface</id>
-							<phase>package</phase>
-							<goals>
-								<goal>jar</goal>
-							</goals>
-							<configuration>
-								<classifier>interface</classifier>
-								<skipIfEmpty>true</skipIfEmpty>
-								<includes>
-									<include>**/Communication.class</include>
-									<include>**/CommunicationServer.class</include>
-									<include>**/InjectionFactoryServer.class</include>
-									<include>**/Parameters.class</include>
-									<include>**/RequestHandler.class</include>
-									<include>**/RequestHandlerClass.class</include>
-									<include>**/SvgApplication.class</include>
-									<include>**/SvgDrawer.class</include>
-								</includes>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
 					<artifactId>maven-assembly-plugin</artifactId>
 					<configuration>
 						<archive>
@@ -68,6 +40,11 @@
 		</pluginManagement>
 	</build>
 	<dependencies>
+		<dependency>
+			<groupId>de.janradeck</groupId>
+            <artifactId>svghttpd-interface</artifactId>
+            <version>1.0</version>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.xmlgraphics</groupId>
 			<artifactId>batik-all</artifactId>

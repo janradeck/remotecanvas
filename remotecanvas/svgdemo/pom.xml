@@ -24,13 +24,8 @@
 					</configuration>
 					<executions>
 						<execution>
-							<id>make-assembly</id> <!-- this is used for
-							inheritance merges -->
-							<phase>package</phase> <!-- bind to the packaging
-							phase -->
-							<goals>
-								<goal>single</goal>
-							</goals>
+							<id>make-assembly</id> <!-- this is used for inheritance merges -->
+							<phase>package</phase> <!-- bind to the packaging	phase -->
 						</execution>
 					</executions>
 				</plugin>
@@ -47,6 +42,11 @@
 		<dependency>
 			<groupId>de.janradeck</groupId>
             <artifactId>svgclient</artifactId>
+            <version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>de.janradeck</groupId>
+            <artifactId>svgclient-interface</artifactId>
             <version>1.0</version>
 		</dependency>
 	</dependencies> 
