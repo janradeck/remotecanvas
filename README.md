@@ -9,6 +9,6 @@ To build the applications:
 - mvn clean compile assembly:single
 - java -jar target\svghttpd-1.0-jar-with-dependencies.jar
 
-Two _stripped down_ libraries are created, that are used in the MPS project [RemoteAdapterGenerator](https://github.com/janradeck/RemoteAdapterGenerator)
+Two _stripped down_ libraries are created, that are used in the JetBrains MPS project [RemoteAdapterGenerator](https://github.com/janradeck/RemoteAdapterGenerator)
 - svgclient-1.0-interface.jar
 - svghttpd-1.0-interface.jar
